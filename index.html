@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Untuk Lumna</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Lora&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/css/base.css" />
+  <link rel="stylesheet" href="/src/css/animations.css" />
+  <link rel="stylesheet" href="/src/css/interactions.css" />
+  <link rel="stylesheet" href="/src/css/layout.css" />
+</head>
+<body>
+
+  <div class="fade-overlay" id="fade-overlay" aria-hidden="true"></div>
+
+  <div id="intro-screen">
+    <p id="intro-text" aria-live="polite"></p>
+    <button id="intro-tap-hint" type="button">Ketuk untuk memulai</button>
+  </div>
+
+  <main class="scene" id="scene">
+
+    <!-- Your existing wall-area / table-area markup (scene-bg, pigura-1..6,
+         cake-group, candles, vases) goes here exactly as it is today —
+         layout.css already targets those classes, nothing about them
+         changes for Vite. I'm not recreating it since I don't have your
+         real asset filenames; paste your current markup back in here. -->
+
+    <button
+      class="surat"
+      id="surat"
+      type="button"
+      aria-label="Buka surat ucapan"
+      aria-expanded="false"
+    ></button>
+
+  </main>
+
+  <audio id="sfxKertas" preload="auto" src="/audio/kertas.mp3"></audio>
+  <audio id="sfxAngin" preload="auto" src="/audio/angin.mp3"></audio>
+  <audio id="sfxTiupan" preload="auto" src="/audio/tiupan.mp3"></audio>
+  <audio id="bgMusic" preload="auto" loop src="/audio/music.mp3"></audio>
+  <!-- preload="none": only fetched once the surat is actually opened -->
+  <audio id="voiceNarration" preload="none" src="/audio/voice.mp3"></audio>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

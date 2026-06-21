@@ -1,0 +1,282 @@
+/* =============================================
+   layout.css — Scene structure & positioning
+   Matches the mockup layout exactly
+   ============================================= */
+
+.scene {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  perspective: var(--perspective-scene);
+  perspective-origin: 50% 65%;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+.scene.zooming {
+  overflow: visible;
+}
+
+/* =============================================
+   SCENE BACKGROUND — wallpaper image
+   Sits behind everything, feels far back
+   ============================================= */
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transform: translateZ(-60px) scale(1.1);
+  pointer-events: none;
+}
+
+.scene-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================
+   WALL AREA — upper portion, pigura zone
+   Background feels further back (translateZ negative)
+   ============================================= */
+.wall-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  z-index: 2;
+  transform: translateZ(-40px);
+  transform-style: preserve-3d;
+}
+
+/* =============================================
+   TABLE AREA — lower portion, foreground
+   ============================================= */
+.table-area {
+  position: absolute;
+  bottom: 20%;
+  left: -20%;
+  width: 140%;
+  max-width: 1400px;
+  height: 2%;
+  z-index: 5;
+  transform-style: preserve-3d;
+}
+
+/* Table image */
+.table-element {
+  position: absolute;
+  /* ⚠️ heads up: "bottom: 90;" has no unit, so it's invalid CSS and the
+     browser drops it (falls back to whatever "bottom" resolves to
+     otherwise). Probably meant 90px or 90%. Not changing it since I
+     don't know your intended value. */
+  bottom: 90;   /* was: bottom: 0 */
+  left: -70px;
+  width: 120%;
+  z-index: 1;
+  transform: perspective(590px) rotateX(var(--table-rotateX)) translateZ(5px);
+  transform-origin: bottom center;
+}
+
+.table-img {
+  position: relative;
+  left: 0px;
+  top: 0%;
+  width: 100%;
+  filter: drop-shadow(0 -4px 20px rgba(0,0,0,0.7));
+}
+
+/* =============================================
+   PIGURA POSITIONS (from mockup)
+   ============================================= */
+
+/* Pigura 1 — top right, larger, 3:4 ratio */
+.pigura-1 {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 45%;
+  z-index: 3;
+}
+
+/* Pigura 2 — top left, smaller, 3:4 ratio */
+.pigura-2 {
+  position: absolute;
+  top: 5%;
+  left: 8%;
+  width: 22%;
+  z-index: 3;
+}
+
+/* Pigura 3 — middle left, 4:3 ratio */
+.pigura-3 {
+  position: absolute;
+  top: 29%;
+  left: 3%;
+  width: 39%;
+  z-index: 3;
+}
+
+/* Pigura 4 — middle right, 3:4 */
+.pigura-4 {
+  position: absolute;
+  top: 66%;
+  left: 6%;
+  width: 22%;
+  max-width: 200px;
+  z-index: 3;
+}
+ 
+/* Pigura 5 — middle right, 3:4 */
+.pigura-5 {
+  position: absolute;
+  top: 50%;
+  left: 49%;
+  width: 49%;
+  max-width: 400px;
+  z-index: 3;
+}
+ 
+/* Pigura 6 — middle right, 3:4 */
+.pigura-6 {
+  position: absolute;
+  top: 90%;
+  left: 0%;
+  width: 39%;
+  z-index: 3;
+}
+
+
+/* =============================================
+   TABLE-TOP ELEMENT POSITIONS (from mockup)
+   ============================================= */
+
+/* Deco candle — far left */
+.deco-candle {
+  position: absolute;
+  left: 3%;
+  bottom: 38%;
+  width: 10%;
+  z-index: 10;
+  transform: translateZ(25px);
+}
+
+/* Vas kecil + bunga — left of cake */
+.vas-kecil {
+  position: absolute;
+  left: 14%;
+  bottom: 24%;
+  width: 16%;
+  z-index: 8;
+  transform: translateZ(18px);
+}
+
+/* Vas menengah + bunga — right-center, above cake */
+.vas-menengah {
+  position: absolute;
+  right: 18%;
+  bottom: -90px;
+  width: 22%;
+  z-index: 7;
+  transform: translateZ(12px);
+}
+
+/* =============================================
+   CAKE GROUP — geser ini buat mindahin kue+api sekaligus
+   ============================================= */
+.cake-group {
+  position: absolute;
+
+  /* 
+   * POSISI HORIZONTAL GRUP (kue+api)
+   * left: 50% + translateX(-50%) = tengah layar
+   * Ubah left: 40% buat geser kiri, 60% buat geser kanan
+   */
+  left: 50%;
+
+  /*
+   * POSISI VERTIKAL GRUP
+   * bottom: makin besar = makin naik
+   * Ubah angka ini buat naik/turun
+   */
+  bottom: -540%;
+
+  transform: translateX(-50%) translateZ(20px);
+
+  /*
+   * UKURAN KUE
+   * width: makin besar = kue makin gede
+   */
+  width: 15%;
+  max-width:400px;
+  z-index: 3;
+}
+
+/* =============================================
+   MAIN CANDLE (API) — geser ini buat mindahin api doang
+   Posisi relatif terhadap kue.png
+   ============================================= */
+.main-candle {
+  position: absolute;
+  top: -10%;    /* naik di atas kue — ubah ini */
+  left: 50%;    /* tengah kue — ubah ini sesuai posisi lilin di gambar */
+  transform: translateX(-50%);
+  width: 10%;   /* lebar area api — ubah kalau glow kepotong */
+  max-width: 0px;
+  z-index: 5;
+}
+
+/* =============================================
+   CAKE AREA — biasanya tidak perlu diubah
+   ============================================= */
+.cake-area {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.cake-wrapper {
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+/* Surat — right side, leaning against vas besar */
+.surat {
+  position: absolute;
+  right: 30%;
+  /* ⚠️ heads up: "top: 400%" places this well below the .table-area box
+     (it's a percentage of a parent that's only 2% tall) — almost
+     certainly off-screen as-is. Probably meant something like top: 40%.
+     Not changing it since I don't know your intended position. */
+  top: 400%;
+  width: 9%;
+  z-index: 11;
+  cursor: pointer;
+  transform: translateZ(22px) rotate(4deg);
+}
+
+/* Added: .surat had position rules but no visual/interactive styling yet.
+   It's a <button> now (see SuratManager / index.html) so it needs the
+   image-as-background treatment plus default button chrome removed. */
+.surat {
+  background-image: url('/assets/suratucapan.png');
+  background-size: cover;
+  background-position: center;
+  border: none;
+  padding: 0;
+}
+.surat:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Vas bunga besar — far right */
+.vas-besar {
+  position: absolute;
+  right: 3%;
+  bottom: 20%;
+  width: 20%;
+  z-index: 6;
+  transform: translateZ(15px);
+}
