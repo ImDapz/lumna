@@ -22,24 +22,68 @@
     <button id="intro-tap-hint" type="button">Ketuk untuk memulai</button>
   </div>
 
-  <main class="scene" id="scene">
-
-    <!-- Your existing wall-area / table-area markup (scene-bg, pigura-1..6,
-         cake-group, candles, vases) goes here exactly as it is today —
-         layout.css already targets those classes, nothing about them
-         changes for Vite. I'm not recreating it since I don't have your
-         real asset filenames; paste your current markup back in here. -->
-
-    <button
-      class="surat"
-      id="surat"
-      type="button"
-      aria-label="Buka surat ucapan"
-      aria-expanded="false"
-    ></button>
-
+  <main id="scene" class="scene">
+    <div class="scrapbook" aria-label="Kolase ucapan ulang tahun untuk Lumna">
+ 
+      <!-- Phase 2 assets. Position/rotation/stacking still live entirely
+           in --x/--y/--w/--h/--r/--z — only the tag + src changed from
+           Phase 1. Filenames + which-slot-gets-which-photo are my best
+           guess from your reference mockup; swap any src that's wrong,
+           the layout numbers don't need to move.
+ 
+           FORK TO CHECK: are these PNGs already rotated/styled stickers
+           with transparent padding (rotation baked into the file), or
+           plain straight photos where CSS should add the tilt? Right now
+           every item uses object-fit:cover + its own --r rotation, which
+           assumes plain straight source images. If a given asset is
+           already a pre-rotated sticker, set --fit:contain and --r:0deg
+           on that one <img> instead (see base.css, both are overridable
+           per-item without touching the shared rule). -->
+ 
+      <img class="scrap-item" style="--x:6%; --y:26%; --w:34%; --h:14%; --r:-8deg; --z:2;"
+           src="assets/sticky-1.png" alt="Catatan tempel: happy birthday to lumna" draggable="false" />
+      <img class="scrap-item" style="--x:54%; --y:27%; --w:37%; --h:16%; --z:2;"
+           src="assets/sticky-2.png" alt="Catatan tempel: Kerenn umurnya nambah 1" draggable="false" />
+ 
+      <img class="scrap-item" style="--x:4%; --y:42%; --w:27%; --h:10%; --z:4;"
+           src="assets/foto-1.png" alt="Foto Lumna" draggable="false" />
+      <img class="scrap-item" style="--x:4%; --y:54%; --w:27%; --h:8%; --z:4;"
+           src="assets/foto-2.png" alt="Foto Lumna" draggable="false" />
+      <img class="scrap-item" style="--x:70%; --y:44%; --w:27%; --h:9%; --z:4;"
+           src="assets/foto-3.png" alt="Foto Lumna dengan stiker kupu-kupu" draggable="false" />
+ 
+      <!-- Decorative accent — empty alt is intentional (not an oversight):
+           it adds nothing on its own beyond the photo it sits on. Delete
+           this item entirely if the accent is already baked into foto-3. -->
+      <img class="scrap-item" style="--x:64%; --y:46%; --w:11%; --h:5.5%; --r:18deg; --z:5;"
+           src="assets/aksen-1.png" alt="" draggable="false" />
+ 
+      <img class="scrap-item" style="--x:2%; --y:63%; --w:35%; --h:14%; --z:6;"
+           src="assets/polaroid-1.png" alt="Polaroid Lumna berdiri" draggable="false" />
+      <img class="scrap-item" style="--x:63%; --y:57%; --w:35%; --h:14%; --z:6;"
+           src="assets/polaroid-2.png" alt="Polaroid Lumna mengenakan hijab di luar ruangan" draggable="false" />
+ 
+      <img class="scrap-item" style="--x:37%; --y:64%; --w:16%; --h:12%; --z:3;"
+           src="assets/sticky-4.png" alt="Coretan wajah tersenyum" draggable="false" />
+      <img class="scrap-item" style="--x:60%; --y:64%; --w:22%; --h:12%; --z:3;"
+           src="assets/sticky-3.png" alt="Catatan tempel: yippie lumna is ulang tahun" draggable="false" />
+ 
+      <!-- The interactive one — sits lowest (z:1), peeking around the
+           others. Stays a <button> (semantics + keyboard support), image
+           applied as a CSS background since it has no other content. -->
+      <button
+        id="surat"
+        type="button"
+        class="scrap-item surat"
+        style="--x:19%; --y:35%; --w:54%; --h:32%; --z:1; --img:url('assets/suratucapan.png');"
+        aria-label="Buka surat ucapan"
+        aria-pressed="false"
+      ></button>
+ 
+    </div>
   </main>
 
+  
   <audio id="sfxKertas" preload="auto" src="/audio/kertas.mp3"></audio>
   <audio id="sfxAngin" preload="auto" src="/audio/angin.mp3"></audio>
   <audio id="sfxTiupan" preload="auto" src="/audio/tiupan.mp3"></audio>
