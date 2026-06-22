@@ -40,33 +40,33 @@
            on that one <img> instead (see base.css, both are overridable
            per-item without touching the shared rule). -->
  
-      <img class="scrap-item" style="--x:6%; --y:26%; --w:34%; --h:14%; --r:-8deg; --z:2;"
+      <img class="scrap-item" style="--x:0%; --y:26%; --w:34%; --h:14%; --r:-8deg; --z:2;"
            src="assets/sticky-1.png" alt="Catatan tempel: happy birthday to lumna" draggable="false" />
       <img class="scrap-item" style="--x:54%; --y:27%; --w:37%; --h:16%; --z:2;"
-           src="assets/sticky-2.png" alt="Catatan tempel: Kerenn umurnya nambah 1" draggable="false" />
+           src="assets/sticky-3.png" alt="Catatan tempel: Kerenn umurnya nambah 1" draggable="false" />
  
       <img class="scrap-item" style="--x:4%; --y:42%; --w:27%; --h:10%; --z:4;"
            src="assets/foto-1.png" alt="Foto Lumna" draggable="false" />
-      <img class="scrap-item" style="--x:4%; --y:54%; --w:27%; --h:8%; --z:4;"
+      <img class="scrap-item" style="--x:4%; --y:54%; --w:27%; --h:10%; --z:4;"
            src="assets/foto-2.png" alt="Foto Lumna" draggable="false" />
-      <img class="scrap-item" style="--x:70%; --y:44%; --w:27%; --h:9%; --z:4;"
+      <img class="scrap-item" style="--x:74%; --y:44%; --w:27%; --h:9%; --z:4;"
            src="assets/foto-3.png" alt="Foto Lumna dengan stiker kupu-kupu" draggable="false" />
  
       <!-- Decorative accent — empty alt is intentional (not an oversight):
            it adds nothing on its own beyond the photo it sits on. Delete
            this item entirely if the accent is already baked into foto-3. -->
-      <img class="scrap-item" style="--x:64%; --y:46%; --w:11%; --h:5.5%; --r:18deg; --z:5;"
+      <img class="scrap-item" style="--x:74%; --y:46%; --w:11%; --h:5.5%; --r:18deg; --z:5;"
            src="assets/aksen-1.png" alt="" draggable="false" />
  
-      <img class="scrap-item" style="--x:2%; --y:63%; --w:35%; --h:14%; --z:6;"
-           src="assets/polaroid-1.png" alt="Polaroid Lumna berdiri" draggable="false" />
-      <img class="scrap-item" style="--x:63%; --y:57%; --w:35%; --h:14%; --z:6;"
-           src="assets/polaroid-2.png" alt="Polaroid Lumna mengenakan hijab di luar ruangan" draggable="false" />
+      <img class="scrap-item" style="--x:2%; --y:63%; --w:35%; --h:14%; --z:3;"
+           src="assets/sticky-4.png" alt="Polaroid Lumna berdiri" draggable="false" />
+      <img class="scrap-item" style="--x:69%; --y:59%; --w:35%; --h:14%; --z:3;"
+           src="assets/sticky-2.png" alt="n" draggable="false" />
  
-      <img class="scrap-item" style="--x:37%; --y:64%; --w:16%; --h:12%; --z:3;"
-           src="assets/sticky-4.png" alt="Coretan wajah tersenyum" draggable="false" />
-      <img class="scrap-item" style="--x:60%; --y:64%; --w:22%; --h:12%; --z:3;"
-           src="assets/sticky-3.png" alt="Catatan tempel: yippie lumna is ulang tahun" draggable="false" />
+      <img class="scrap-item" style="--x:42%; --y:65%; --w:16%; --h:12%; --z:6;"
+           src="assets/polaroid-1.png" alt="Coretan wajah tersenyum" draggable="false" />
+      <img class="scrap-item" style="--x:65%; --y:66%; --w:22%; --h:12%; --z:6;"
+           src="assets/polaroid-2.png" alt="Catatan tempel: yippie lumna is ulang tahun" draggable="false" />
  
       <!-- The interactive one — sits lowest (z:1), peeking around the
            others. Stays a <button> (semantics + keyboard support), image
@@ -75,7 +75,7 @@
         id="surat"
         type="button"
         class="scrap-item surat"
-        style="--x:19%; --y:35%; --w:54%; --h:32%; --z:1; --img:url('assets/suratucapan.png');"
+        style="--x:19%; --y:30%; --w:67.5%; --h:40%; --z:1; --img:url('assets/suratucapan.png');"
         aria-label="Buka surat ucapan"
         aria-pressed="false"
       ></button>
@@ -89,7 +89,7 @@
   <audio id="sfxTiupan" preload="auto" src="/audio/tiupan.mp3"></audio>
   <audio id="bgMusic" preload="auto" loop src="/audio/music.mp3"></audio>
   <!-- preload="none": only fetched once the surat is actually opened -->
-  <audio id="voiceNarration" preload="none" src="/audio/voice.mp3"></audio>
+  <audio id="voiceNarration" preload="none" src="/audio/voice.wav"></audio>
 
   <script type="module" src="/src/main.js"></script>
 </body>

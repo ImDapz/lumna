@@ -8,10 +8,12 @@ export const IntroManager = (() => {
 
   // ✏️ EDIT KATA DI SINI
   const words = [
+ ''
+  
   ];
 
   // ⏱️ DURASI (detik)
-  const WORDS_DURATION = 5;
+  const WORDS_DURATION = 3;
   const fade_in  = WORDS_DURATION / 4;
   const fade_out = WORDS_DURATION / 4;
   const totalDuration = words.length * WORDS_DURATION * 1000;

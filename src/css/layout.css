@@ -2,20 +2,70 @@
    layout.css — Scene structure & positioning
    Matches the mockup layout exactly
    ============================================= */
+/* ==========================================================================
+   PERBAIKAN FINAL SCRAPBOOK & KUNCI SCROLL
+   ========================================================================== */
+
+/* ==========================================================================
+   PERBAIKAN BACKGROUND FULL LAYAR DAN CENTERING
+   ========================================================================== */
 
 .scene {
   position: relative;
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   perspective: var(--perspective-scene);
-  perspective-origin: 50% 65%;
-  overflow: hidden;
-  background: var(--bg-dark);
+  perspective-origin: 50% 50%;
+  overflow: hidden; /* Kunci mati agar tidak ada scrollbar */
+  
+  /* UBAH DI SINI: Ganti var(--bg-dark) menjadi warna putih tulang */
+  background: #f9f6f0; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.scene.zooming {
-  overflow: visible;
+.scrapbook {
+  position: relative;
+  
+  /* Ukuran canvas scrapbook tetap terkunci proporsional di tengah */
+  width: 50vh;  
+  height: 100vh; 
+  
+  /* Buat background transparan karena background utama sudah putih tulang di .scene */
+  background-color: transparent; 
+  
+  box-shadow: none; 
+  margin: 0;
+  top: 0;
+  transform: none;
+}
+
+/* Aturan untuk setiap item gambar di dalamnya */
+/* Cari bagian ini di paling bawah layout.css kamu */
+.scrap-item {
+  position: absolute;
+  left: var(--x, 0%);
+  top: var(--y, 0%);
+  width: var(--w, 10%);
+  height: var(--h, 10%);
+  z-index: var(--z, 1);
+  transform: rotate(var(--r, 0deg));
+  
+  /* 🛠️ UBAH BAGIAN INI DARI 'cover' MENJADI 'contain' */
+  object-fit: contain; 
+  
+  background-size: contain; /* Ubah ini juga menjadi contain jika ada background */
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  box-shadow: none;
+  filter: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
 }
 
 /* =============================================
@@ -89,101 +139,6 @@
 }
 
 /* =============================================
-   PIGURA POSITIONS (from mockup)
-   ============================================= */
-
-/* Pigura 1 — top right, larger, 3:4 ratio */
-.pigura-1 {
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  width: 45%;
-  z-index: 3;
-}
-
-/* Pigura 2 — top left, smaller, 3:4 ratio */
-.pigura-2 {
-  position: absolute;
-  top: 5%;
-  left: 8%;
-  width: 22%;
-  z-index: 3;
-}
-
-/* Pigura 3 — middle left, 4:3 ratio */
-.pigura-3 {
-  position: absolute;
-  top: 29%;
-  left: 3%;
-  width: 39%;
-  z-index: 3;
-}
-
-/* Pigura 4 — middle right, 3:4 */
-.pigura-4 {
-  position: absolute;
-  top: 66%;
-  left: 6%;
-  width: 22%;
-  max-width: 200px;
-  z-index: 3;
-}
- 
-/* Pigura 5 — middle right, 3:4 */
-.pigura-5 {
-  position: absolute;
-  top: 50%;
-  left: 49%;
-  width: 49%;
-  max-width: 400px;
-  z-index: 3;
-}
- 
-/* Pigura 6 — middle right, 3:4 */
-.pigura-6 {
-  position: absolute;
-  top: 90%;
-  left: 0%;
-  width: 39%;
-  z-index: 3;
-}
-
-
-/* =============================================
-   TABLE-TOP ELEMENT POSITIONS (from mockup)
-   ============================================= */
-
-/* Deco candle — far left */
-.deco-candle {
-  position: absolute;
-  left: 3%;
-  bottom: 38%;
-  width: 10%;
-  z-index: 10;
-  transform: translateZ(25px);
-}
-
-/* Vas kecil + bunga — left of cake */
-.vas-kecil {
-  position: absolute;
-  left: 14%;
-  bottom: 24%;
-  width: 16%;
-  z-index: 8;
-  transform: translateZ(18px);
-}
-
-/* Vas menengah + bunga — right-center, above cake */
-.vas-menengah {
-  position: absolute;
-  right: 18%;
-  bottom: -90px;
-  width: 22%;
-  z-index: 7;
-  transform: translateZ(12px);
-}
-
-/* =============================================
    CAKE GROUP — geser ini buat mindahin kue+api sekaligus
    ============================================= */
 .cake-group {
@@ -241,32 +196,48 @@
   transition: transform 0.3s var(--ease-smooth);
 }
 
-/* Surat — right side, leaning against vas besar */
+/* Surat — right side, leaning against vas besar 
 .surat {
   position: absolute;
   right: 30%;
-  /* ⚠️ heads up: "top: 400%" places this well below the .table-area box
-     (it's a percentage of a parent that's only 2% tall) — almost
-     certainly off-screen as-is. Probably meant something like top: 40%.
-     Not changing it since I don't know your intended position. */
   top: 400%;
   width: 9%;
   z-index: 11;
   cursor: pointer;
   transform: translateZ(22px) rotate(4deg);
-}
+} */
 
 /* Added: .surat had position rules but no visual/interactive styling yet.
    It's a <button> now (see SuratManager / index.html) so it needs the
    image-as-background treatment plus default button chrome removed. */
 .surat {
   background-image: url('/assets/suratucapan.png');
-  background-size: cover;
-  background-position: center;
-  border: none;
-  padding: 0;
-}
-.surat:focus-visible {
+ /* =============================================
+    PERBAIKAN SELECTOR SURAT UTAMA
+    ============================================= */
+
+   
+   /* Menggunakan contain agar surat tidak terpotong sama sekali */
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   
+   /* RESET MUTLAK: Menghapus nilai bawaan lama yang bikin surat terlempar keluar layar */
+   position: absolute !important;
+   left: var(--x, 0%) !important;
+   top: var(--y, 0%) !important;
+   width: var(--w, 20%) !important;
+   height: var(--h, 20%) !important;
+   z-index: var(--z, 1) !important;
+   
+   /* Hilangkan border/background tombol default browser */
+   background-color: transparent;
+   border: none;
+   outline: none;
+   padding: 0;
+   cursor: pointer;
+ }
+ .surat:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
@@ -280,3 +251,5 @@
   z-index: 6;
   transform: translateZ(15px);
 }
+
+

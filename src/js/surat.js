@@ -61,7 +61,7 @@ export const SuratManager = (() => {
     playNarrationOnce();
 
     // Piguras use a hand-tuned originMap (eyeballed per element). Surat
-    // doesn't have one yet, so its origin is computed from actual layout
+    // doesn't have one yet, so its origin is computed from		 actual layout
     // instead of guessing a percentage — swap this for a hardcoded string
     // once you've eyeballed a value you like, for parity with pigura.js.
     scene.style.transformOrigin = computeOrigin(surat, scene);
@@ -75,12 +75,18 @@ export const SuratManager = (() => {
   function close() {
     if (!isOpen) return;
     const scene = document.getElementById('scene');
-    const surat = document.querySelector('.surat');
-
+    const surat = document.getElementById('surat');
+  
     scene.classList.remove('zoom-in');
     scene.classList.add('zooming', 'zoom-out');
     if (surat) surat.setAttribute('aria-expanded', 'false');
-
+  
+    // 🛠️ TAMBAHKAN KODE INI: Kembalikan volume musik jika surat ditutup
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic) {
+      bgMusic.volume = 1.0; 
+    }
+  
     scene.addEventListener('animationend', () => {
       isOpen = false;
       scene.classList.remove('zooming', 'zoom-out');
@@ -96,25 +102,61 @@ export const SuratManager = (() => {
     return `${x}% ${y}%`;
   }
 
+  // Variabel global di luar fungsi untuk menyimpan Audio Context agar tidak terbuat berulang-ulang
+  let audioCtx = null;
+  let gainNode = null;
+  let source = null;
+  
   function playNarrationOnce() {
     if (narrated) return;
     narrated = true;
-
+  
     const voice = document.getElementById('voiceNarration');
     const bgMusic = document.getElementById('bgMusic');
     if (!voice) return;
-
-    // Lazy ducking: hard pause/resume, no crossfade.
-    // Ceiling: abrupt cut instead of a smooth fade.
-    // Upgrade path: ease bgMusic.volume down/up over ~300ms, or reuse
-    // AudioManager's existing VOLUME_KEYFRAMES easing if that's already
-    // the established pattern for volume changes elsewhere.
-    if (bgMusic && !bgMusic.paused) bgMusic.pause();
-
-    voice.currentTime = 0;
+  
+    // 1. Kecilkan musik latar seperti biasa
+    if (bgMusic && !bgMusic.paused) {
+      bgMusic.volume = 0.2; 
+    }
+  
+    try {
+      // 2. Setup Web Audio API untuk mendongkrak volume suara narator
+      if (!audioCtx) {
+        // Buat Audio Context baru jika belum ada
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Buat node penguat suara (Gain Node)
+        gainNode = audioCtx.createGain();
+        
+        // Hubungkan elemen audio narator ke dalam sistem Web Audio API
+        source = audioCtx.createMediaElementSource(voice);
+        
+        // Hubungkan suara -> penguat suara -> speaker device
+        source.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+      }
+  
+      // 3. SET VOLUMENYA DI SINI MENJADI 2.0 (2x lipat lebih keras dari aslinya)
+      gainNode.gain.value = 2.0;
+  
+      // Pastikan audio context dalam kondisi aktif (mengatasi kebijakan browser)
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+  
+    } catch (e) {
+      console.log("Web Audio API setup:", e);
+    }
+  
+    // 4. Mainkan suara narator
     voice.play().catch(() => {});
+  
+    // Ketika suara narator selesai, kembalikan volume musik ke normal (100%)
     voice.addEventListener('ended', () => {
-      if (bgMusic) bgMusic.play().catch(() => {});
+      if (bgMusic) {
+        bgMusic.volume = 1.0; 
+      }
     }, { once: true });
   }
 

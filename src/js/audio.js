@@ -3,16 +3,11 @@ export const AudioManager = (() => {
   let bgMusic = null;
   let audioUnlocked = false;
   /*const MUSIC_START_TIME = 60+60+10;*/
-  const MUSIC_START_TIME = 60+60+60+5;
+  const MUSIC_START_TIME = 0;
   /*const MUSIC_START_TIME = 60+19;*/
 
   const VOLUME_KEYFRAMES = [
-    { time: MUSIC_START_TIME-20,   volume: 0.0 },
-    { time: MUSIC_START_TIME-15,  volume: 0.4},
-    { time: MUSIC_START_TIME-10,  volume: 0.5},
-    { time: MUSIC_START_TIME-0.5,  volume: 0.5}, 
-    /*{ time: MUSIC_START_TIME+2,  volume: 1 },*/
-    { time: MUSIC_START_TIME,  volume: 1 },
+    { time: MUSIC_START_TIME,  volume: 1 }
   ];
 
   let volumeLocked = false;
